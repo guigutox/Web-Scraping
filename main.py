@@ -1,4 +1,5 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 
 receita = 'arroz+branco'
@@ -28,8 +29,11 @@ if(requestReceita.status_code == 200):
     soup = BeautifulSoup(requestReceita.text, 'html.parser')
     ingredientes = soup.find('ul', class_='recipe-content__steps')
     for ingrediente in ingredientes:
-        texto_limpo = ingrediente.text.replace('Check', '')
+        texto_limpo = ingrediente.text.replace('Check', '').replace('½', '0,5')
         print(texto_limpo)
+
+    
+    
 
 else:
     print('Requisição falhou')
